@@ -1,18 +1,38 @@
-# WeClaw 安装与配置工具
+---
+name: weclaw_installer
+description: Automate installing and configuring the WeClaw WeChat bot environment on macOS. Use when the user asks to download/install WeClaw, set up the local Python environment, or troubleshoot setup prerequisites (git/uv, macOS Accessibility permissions, API key).
+metadata:
+  openclaw:
+    os: ["darwin"]
+    requires:
+      bins: ["git", "uv", "python3"]
+---
 
-这个技能专门用于自动化部署 WeClaw 微信机器人项目。
+## When to use
 
-## 适用场景
-- 当用户提到“下载 WeClaw”或“配置 WeClaw 环境”时。
+Use this skill when the user wants to:
+- Install / download / bootstrap the WeClaw project locally
+- Set up Python dependencies with `uv`
+- Configure an API key / `.env`
+- Fix common macOS setup blockers (especially Accessibility permission)
 
-## 交互流程
-1. **权限检查**：脚本会检查 Mac 的辅助功能权限。如果未开启，会引导用户前往系统设置。
-2. **API Key 收集**：如果本地没有配置 API Key，会提示用户输入。
-3. **自动化执行**：
-   - 使用 `git` 从 GitHub 拉取最新的代码。
-   - 使用 `uv` 工具极速创建虚拟环境并安装所有依赖项。
-   - 自动生成 `.env` 配置文件并将 API Key 写入。
+## Workflow
 
-## 注意事项
-- 请确保本地已安装 `git` 和 `uv`。
-- 本工具主要针对 macOS 环境进行了权限优化。
+1. Ensure prerequisites are available: `git`, `uv`, `python3`.
+2. On macOS, ensure Accessibility permission is enabled for the terminal/app that will run automation.
+3. Ask the user for the required API key if it is not already provided.
+4. Run the project’s setup entrypoint to perform the automated steps.
+
+## Entrypoint
+
+Run:
+
+- `python3 setup_package.py`
+
+(If the setup script requires arguments/flags, follow the script’s prompts or update the invocation accordingly.)
+
+## Safety / guardrails
+
+- Do not request or store unrelated secrets.
+- Only write `.env` / config values that are explicitly required for WeClaw setup.
+- If a step fails, surface the exact command output and suggest the smallest next fix.
