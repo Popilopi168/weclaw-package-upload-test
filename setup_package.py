@@ -13,8 +13,8 @@ def setup_openclaw_package(api_key: str = None, mac_permission_confirmed: bool =
     - mac_permission_confirmed (bool, optional): 用户是否已经确认开启了 Mac 的辅助功能权限。默认为 False。
     """
     
-    repo_url = "https://github.com/your-org/your-awesome-package.git"
-    target_dir = "your-awesome-package"
+    repo_url = "https://github.com/Popilopi168/weclaw-package-upload-test"
+    target_dir = "weclaw-package-upload-test"
     work_dir = Path(target_dir)
 
     # ==========================================
@@ -46,12 +46,11 @@ def setup_openclaw_package(api_key: str = None, mac_permission_confirmed: bool =
          )
 
     # ==========================================
-    # 第三步：干脏活累活 (Clone & uv)
+    # 第三步：Clone & uv 配置 Python 环境
     # ==========================================
     try:
         # 1. 拉取代码库
         if not os.path.exists(target_dir):
-            # 这里的 print 会在后台终端输出，Demo 录屏时一边聊天一边看终端狂刷日志，效果极佳
             print("🔄 [System] 正在拉取代码库...") 
             subprocess.run(["git", "clone", repo_url], check=True, capture_output=True)
         else:
@@ -64,7 +63,6 @@ def setup_openclaw_package(api_key: str = None, mac_permission_confirmed: bool =
         subprocess.run(["uv", "venv"], cwd=work_dir, check=True, capture_output=True)
         
         # uv pip 会自动识别并使用刚刚创建的 .venv
-        # 这里假设你们的根目录有 requirements.txt 或者 pyproject.toml
         subprocess.run(["uv", "pip", "install", "-r", "requirements.txt"], cwd=work_dir, check=True, capture_output=True)
 
         # 3. 路由 API Key
