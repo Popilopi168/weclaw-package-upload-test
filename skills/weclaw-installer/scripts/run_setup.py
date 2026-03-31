@@ -23,7 +23,7 @@ def main() -> int:
     sys.path.insert(0, str(repo_root))
 
     try:
-        from setup_package import setup_openclaw_package  # type: ignore
+        from setup_package import setup_openclaw_package 
     except Exception as e:
         print(f"STATUS: FAILED. Could not import setup_package.py: {e}")
         return 1

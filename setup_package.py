@@ -26,7 +26,7 @@ def setup_openclaw_package(api_key: str = None, mac_permission_confirmed: bool =
             apple_script = 'open "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"'
             subprocess.run(apple_script, shell=True, check=False)
         except Exception:
-            pass # 即使打开失败也不影响整体流程
+            pass 
         
         # 将控制权交还给 LLM，让它去跟用户沟通
         return (
@@ -78,11 +78,10 @@ def setup_openclaw_package(api_key: str = None, mac_permission_confirmed: bool =
         return (
             "STATUS: SUCCESS. "
             "配置全部完成！请用热情专业的语气告诉用户：代码已成功拉取，Python 环境和依赖已通过 uv 极速配置完毕，"
-            "API Key 也已安全写入 `.env` 文件。他们现在可以进入目录开始愉快的 coding 了！"
+            "API Key 也已安全写入 `.env` 文件。现在已经可以使用weclaw了。"
         )
 
     except subprocess.CalledProcessError as e:
-        # 【防御性编程】捕获底层错误并让 LLM 解释给用户听
         error_msg = e.stderr.decode('utf-8') if e.stderr else str(e)
         return f"STATUS: FAILED. 运行系统命令出错。请告诉用户安装失败，并简述错误日志：{error_msg}"
     except Exception as e:
